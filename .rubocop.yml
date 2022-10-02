@@ -1,0 +1,19 @@
+AllCops:
+  NewCops: enable
+
+Style/HashSyntax:
+  EnforcedShorthandSyntax: never
+
+Style/TrailingCommaInHashLiteral:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Exclude:
+    - bin/**/*
+
+Metrics/BlockLength:
+  Exclude:
+    - spec/**/*.rb
