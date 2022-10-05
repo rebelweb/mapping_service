@@ -1,0 +1,58 @@
+{
+    "items": [
+        {
+            "title": "Ballard Nature Center",
+            "id": "here:pds:place:840dnbym-9fa2cf78b19d4b9b8bcf0d03930cde3d",
+            "resultType": "place",
+            "address": {
+                "label": "Ballard Nature Center, 5253 E US Highway 40, Altamont, IL 62411-2485, United States",
+                "countryCode": "USA",
+                "countryName": "United States",
+                "stateCode": "IL",
+                "state": "Illinois",
+                "county": "Effingham",
+                "city": "Altamont",
+                "street": "E US Highway 40",
+                "postalCode": "62411-2485",
+                "houseNumber": "5253"
+            },
+            "position": {
+                "lat": 39.06721,
+                "lng": -88.70767
+            },
+            "access": [
+                {
+                    "lat": 39.06739,
+                    "lng": -88.70775
+                }
+            ],
+            "categories": [
+                {
+                    "id": "550-5510-0202",
+                    "name": "Park-Recreation Area",
+                    "primary": true
+                },
+                {
+                    "id": "300-3000-0000",
+                    "name": "Landmark-Attraction"
+                },
+                {
+                    "id": "550-5510-0359",
+                    "name": "Trailhead"
+                },
+                {
+                    "id": "700-7200-0269",
+                    "name": "Organizations and Societies"
+                }
+            ],
+            "scoring": {
+                "queryScore": 1.0,
+                "fieldScore": {
+                    "state": 1.0,
+                    "city": 1.0,
+                    "placeName": 1.0
+                }
+            }
+        }
+    ]
+}
