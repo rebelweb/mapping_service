@@ -6,6 +6,7 @@ abort('Misconfigured APP_ENV') if ENV['APP_ENV'] != 'test'
 
 require_relative '../config/application'
 require 'rack/test'
+require 'support/vcr'
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|
