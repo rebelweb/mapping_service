@@ -11,16 +11,12 @@ module MappingService
 
       let(:response) { JSON.parse(response_body) }
 
-      let(:here_client) { double('here_client') }
-
       subject do
-        described_class.new(
-          here_client: here_client
-        )
+        described_class.new
       end
 
       it 'returns the response from the selected geocode client' do
-        allow(here_client)
+        allow_any_instance_of(MappingService::Providers::Here::GeocodeClient)
           .to receive(:call).with({ query: query }).and_return(response)
 
         expect(subject.call(query: query)).to eq(response)

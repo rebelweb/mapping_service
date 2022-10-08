@@ -5,7 +5,7 @@ module MappingService
     class GeocodeRetriever
       attr_reader :here_client
 
-      def initialize(here_client:)
+      def initialize(here_client: MappingService::Providers::Here::GeocodeClient.new)
         self.here_client = here_client
       end
 
