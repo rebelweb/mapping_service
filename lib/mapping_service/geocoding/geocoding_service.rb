@@ -5,7 +5,7 @@ module MappingService
     class GeocodingService
       attr_reader :geocode_retriever
 
-      def initialize(geocode_retriever:)
+      def initialize(geocode_retriever: GeocodeRetriever.new)
         self.geocode_retriever = geocode_retriever
       end
 

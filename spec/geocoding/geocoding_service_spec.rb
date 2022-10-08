@@ -13,16 +13,12 @@ module MappingService
 
       let(:response) { JSON.parse(response_body) }
 
-      let(:geocode_retriever) { double('geocode_retriever') }
-
       subject do
-        described_class.new(
-          geocode_retriever: geocode_retriever
-        )
+        described_class.new
       end
 
       it 'makes the request to get the geocode request' do
-        allow(geocode_retriever)
+        allow_any_instance_of(MappingService::Geocoding::GeocodeRetriever)
           .to receive(:call).with({query: query}).and_return(response)
 
         expect(subject.call(query: query)).to eq(response)
