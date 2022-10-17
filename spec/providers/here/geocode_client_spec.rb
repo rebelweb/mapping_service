@@ -16,15 +16,15 @@ module MappingService
         end
 
         it 'returns a response from the here API',
-          vcr: { cassette_name: 'here/geocode/success' } do
+           vcr: { cassette_name: 'here/geocode/success' } do
           response = subject.call(query: query)
 
-          expect(response["items"][0]["address"]["city"]).to eq('Altamont')
-          expect(response["items"][0]["address"]["stateCode"]).to eq('IL')
+          expect(response['items'][0]['address']['city']).to eq('Altamont')
+          expect(response['items'][0]['address']['stateCode']).to eq('IL')
         end
 
         it 'returns nil when the api key is not set' do
-          allow(ENV).to receive(:[]).and_return('')
+          allow(ENV).to receive(:fetch).and_return('')
 
           response = subject.call(query: query)
 
@@ -32,9 +32,10 @@ module MappingService
         end
 
         it 'returns nil if the api key is invalid',
-          vcr: { cassette_name: 'here/geocode/invalid_api_key' } do
-          allow(ENV).to receive(:[]).and_return('')
-          allow(ENV).to receive(:[]).with('HERE_API_KEY').and_return('abc123')
+           vcr: { cassette_name: 'here/geocode/invalid_api_key' } do
+          allow(ENV).to receive(:fetch).and_return('')
+
+          allow(ENV).to receive(:fetch).with('HERE_API_KEY').and_return('abc123')
 
           response = subject.call(query: query)
 

@@ -19,7 +19,7 @@ module MappingService
 
       it 'makes the request to get the geocode request' do
         allow_any_instance_of(MappingService::Geocoding::GeocodeRetriever)
-          .to receive(:call).with({query: query}).and_return(response)
+          .to receive(:call).with({ query: query }).and_return(response)
 
         expect(subject.call(query: query)).to eq(response)
       end

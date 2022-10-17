@@ -1,8 +1,8 @@
- # frozen_string_literal: true
+# frozen_string_literal: true
 
- require 'spec_helper'
+require 'spec_helper'
 
- RSpec.describe 'Status Endpoints', type: :endpoint do
+RSpec.describe 'Status Endpoints', type: :endpoint do
   def app
     MappingService::Application
   end
@@ -15,4 +15,4 @@
     expect(last_response.status).to eq(200)
     expect(body['version']).to eq('0.0.1')
   end
- end
+end

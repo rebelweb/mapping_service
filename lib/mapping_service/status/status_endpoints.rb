@@ -3,7 +3,7 @@
 module MappingService
   module Status
     class StatusEndpoints < Grape::API
-      get'/' do
+      get '/' do
         StatusService.call
       end
     end
