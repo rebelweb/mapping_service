@@ -6,5 +6,6 @@ module MappingService
     format :json
 
     mount Status::StatusEndpoints => '/status'
+    mount Geocoding::GeocodingEndpoints => '/geocoding'
   end
 end
