@@ -5,6 +5,8 @@ Bundler.require
 
 ENV['APP_ENV'] ||= 'development'
 
+Time.zone = 'UTC'
+
 Dir.glob('config/initializers/**/*.rb').each do |f|
   require "./#{f}"
 end
