@@ -10,7 +10,16 @@ module MappingService
       end
 
       def call(query:)
-        geocode_retriever.call(query: query)
+        response = geocode_retriever.call(query: query)
+
+        ProviderResponse.create(
+          query: query,
+          provider: 'Here',
+          response: response,
+          created_at: Time.zone.now
+        )
+
+        response
       end
 
       private

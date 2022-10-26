@@ -23,6 +23,12 @@ module MappingService
 
         expect(subject.call(query: query)).to eq(response)
       end
+
+      it 'saves the response into cache' do
+        expect do
+          subject.call(query: query)
+        end.to change(ProviderResponse, :count).by(1)
+      end
     end
   end
 end
