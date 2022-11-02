@@ -29,6 +29,21 @@ module MappingService
           subject.call(query: query)
         end.to change(ProviderResponse, :count).by(1)
       end
+
+      context 'retriving cached response' do
+        let(:cached_response) do
+          ProviderResponse.create(
+            query: query,
+            provider: 'Here',
+            response: response,
+            created_at: Time.zone.now
+          )
+        end
+
+        it 'returns the result from cache' do
+          expect(subject.call(query: query)).to eq(cached_response.response)
+        end
+      end
     end
   end
 end

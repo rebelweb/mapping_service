@@ -10,14 +10,23 @@ module MappingService
       end
 
       def call(query:)
-        response = geocode_retriever.call(query: query)
+        cache = ProviderResponse.where(
+          name: 'Here',
+          query: query
+        ).last
 
-        ProviderResponse.create(
-          query: query,
-          provider: 'Here',
-          response: response,
-          created_at: Time.zone.now
-        )
+        response = cache
+
+        unless cache
+          response = geocode_retriever.call(query: query)
+
+          ProviderResponse.create(
+            query: query,
+            provider: 'Here',
+            response: response,
+            created_at: Time.zone.now
+          )
+        end
 
         response
       end
