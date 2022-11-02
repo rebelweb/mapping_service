@@ -26,6 +26,15 @@ module MappingService
             cache = subject.retrieve(query: query, provider: 'Here')
             expect(cache.response).to eq(response)
           end
+
+          it 'returns nil if the response is past the cache expiration' do
+            allow(ENV).to receive(:fetch).with('RESPONSE_VALID_FOR', nil).and_return(90)
+
+            Timecop.freeze(Time.zone.now + 91.days) do
+              cache = subject.retrieve(query: query, provider: 'Here')
+              expect(cache).to be_nil
+            end
+          end
         end
 
         it 'returns null if there is no response in the cache' do
