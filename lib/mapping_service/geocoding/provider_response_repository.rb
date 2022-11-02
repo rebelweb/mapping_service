@@ -13,6 +13,15 @@ module MappingService
         responses.last
       end
 
+      def create(query: , provider: , response: )
+        ProviderResponse.create(
+          query: query,
+          provider: provider,
+          response: response,
+          created_at: Time.zone.now
+        )
+      end
+
       private
 
       def filter_expired_results

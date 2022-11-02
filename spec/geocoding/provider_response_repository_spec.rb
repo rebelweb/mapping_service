@@ -41,6 +41,14 @@ module MappingService
           expect(subject.retrieve(query: query, provider: 'Here')).to be_nil
         end
       end
+
+      describe '#create' do
+        it 'writes the cache record' do
+          expect{
+            subject.create(query: query, provider: 'Here', response: response)
+          }.to change(ProviderResponse, :count).by(1)
+        end
+      end
     end
   end
 end
