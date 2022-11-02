@@ -44,9 +44,9 @@ module MappingService
 
       describe '#create' do
         it 'writes the cache record' do
-          expect{
+          expect do
             subject.create(query: query, provider: 'Here', response: response)
-          }.to change(ProviderResponse, :count).by(1)
+          end.to change(ProviderResponse, :count).by(1)
         end
       end
     end

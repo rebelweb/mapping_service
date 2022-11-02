@@ -3,7 +3,7 @@
 module MappingService
   module Geocoding
     class ProviderResponseRepository
-      def retrieve(query: , provider: )
+      def retrieve(query:, provider:)
         responses = ProviderResponse.where(
           query: query,
           provider: provider
@@ -13,7 +13,7 @@ module MappingService
         responses.last
       end
 
-      def create(query: , provider: , response: )
+      def create(query:, provider:, response:)
         ProviderResponse.create(
           query: query,
           provider: provider,
