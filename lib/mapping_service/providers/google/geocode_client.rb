@@ -3,7 +3,7 @@
 require 'net/http'
 
 module MappingService
-	module Providers
+  module Providers
     module Google
       class GeocodeClient
         ENDPOINT = 'https://maps.googleapis.com/maps/api/geocode/json'
@@ -15,16 +15,7 @@ module MappingService
         def call(query:)
           return if api_key.blank?
 
-          uri = URI(ENDPOINT)
-          uri.query = URI.encode_www_form(request_params(query))
-
-          client = Net::HTTP.new(uri.host, uri.port)
-          client.use_ssl = true
-
-          request = Net::HTTP::Get.new("#{uri.path}?#{uri.query}")
-          response = client.request(request)
-
-          body = JSON.parse(response.body)
+          body = JSON.parse(make_request(query).body)
 
           return nil if body['status'] == 'REQUEST_DENIED'
 
@@ -34,6 +25,17 @@ module MappingService
         private
 
         attr_accessor :api_key
+
+        def make_request(query)
+          uri = URI(ENDPOINT)
+          uri.query = URI.encode_www_form(request_params(query))
+
+          client = Net::HTTP.new(uri.host, uri.port)
+          client.use_ssl = true
+
+          request = Net::HTTP::Get.new("#{uri.path}?#{uri.query}")
+          client.request(request)
+        end
 
         def request_params(query)
           {
