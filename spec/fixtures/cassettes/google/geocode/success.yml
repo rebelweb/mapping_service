@@ -1,0 +1,136 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://maps.googleapis.com/maps/api/geocode/json?address=Ballard%20Nature%20Center%20Altamont%20IL&key=<GOOGLE_API_KEY>
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Date:
+      - Thu, 03 Nov 2022 04:28:48 GMT
+      Pragma:
+      - no-cache
+      Expires:
+      - Fri, 01 Jan 1990 00:00:00 GMT
+      Cache-Control:
+      - no-cache, must-revalidate
+      Vary:
+      - Accept-Language
+      Access-Control-Allow-Origin:
+      - "*"
+      Server:
+      - mafe
+      X-Xss-Protection:
+      - '0'
+      X-Frame-Options:
+      - SAMEORIGIN
+      Server-Timing:
+      - gfet4t7; dur=106
+      Alt-Svc:
+      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000,h3-Q050=":443"; ma=2592000,h3-Q046=":443";
+        ma=2592000,h3-Q043=":443"; ma=2592000,quic=":443"; ma=2592000; v="46,43"
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: |
+        {
+           "results" : [
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "Ballard Nature Center",
+                       "short_name" : "Ballard Nature Center",
+                       "types" : [ "establishment", "park", "point_of_interest", "tourist_attraction" ]
+                    },
+                    {
+                       "long_name" : "5253",
+                       "short_name" : "5253",
+                       "types" : [ "street_number" ]
+                    },
+                    {
+                       "long_name" : "U.S. 40",
+                       "short_name" : "US-40",
+                       "types" : [ "route" ]
+                    },
+                    {
+                       "long_name" : "Altamont",
+                       "short_name" : "Altamont",
+                       "types" : [ "locality", "political" ]
+                    },
+                    {
+                       "long_name" : "Mound Township",
+                       "short_name" : "Mound Township",
+                       "types" : [ "administrative_area_level_3", "political" ]
+                    },
+                    {
+                       "long_name" : "Effingham County",
+                       "short_name" : "Effingham County",
+                       "types" : [ "administrative_area_level_2", "political" ]
+                    },
+                    {
+                       "long_name" : "Illinois",
+                       "short_name" : "IL",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    },
+                    {
+                       "long_name" : "62411",
+                       "short_name" : "62411",
+                       "types" : [ "postal_code" ]
+                    },
+                    {
+                       "long_name" : "2485",
+                       "short_name" : "2485",
+                       "types" : [ "postal_code_suffix" ]
+                    }
+                 ],
+                 "formatted_address" : "Ballard Nature Center, 5253 US-40, Altamont, IL 62411, USA",
+                 "geometry" : {
+                    "location" : {
+                       "lat" : 39.0625551,
+                       "lng" : -88.7048813
+                    },
+                    "location_type" : "ROOFTOP",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 39.0639040802915,
+                          "lng" : -88.70353231970849
+                       },
+                       "southwest" : {
+                          "lat" : 39.0612061197085,
+                          "lng" : -88.70623028029151
+                       }
+                    }
+                 },
+                 "partial_match" : true,
+                 "place_id" : "ChIJJUdXuquOc4gRdFL0oXOUJwg",
+                 "plus_code" : {
+                    "compound_code" : "377W+22 Altamont, IL",
+                    "global_code" : "86FH377W+22"
+                 },
+                 "types" : [ "establishment", "park", "point_of_interest", "tourist_attraction" ]
+              }
+           ],
+           "status" : "OK"
+        }
+  recorded_at: Thu, 03 Nov 2022 04:28:47 GMT
+recorded_with: VCR 6.1.0

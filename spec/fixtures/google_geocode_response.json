@@ -1,0 +1,117 @@
+{
+    "results": [
+        {
+            "address_components": [
+                {
+                    "long_name": "Ballard Nature Center",
+                    "short_name": "Ballard Nature Center",
+                    "types": [
+                        "establishment",
+                        "park",
+                        "point_of_interest",
+                        "tourist_attraction"
+                    ]
+                },
+                {
+                    "long_name": "5253",
+                    "short_name": "5253",
+                    "types": [
+                        "street_number"
+                    ]
+                },
+                {
+                    "long_name": "U.S. 40",
+                    "short_name": "US-40",
+                    "types": [
+                        "route"
+                    ]
+                },
+                {
+                    "long_name": "Altamont",
+                    "short_name": "Altamont",
+                    "types": [
+                        "locality",
+                        "political"
+                    ]
+                },
+                {
+                    "long_name": "Mound Township",
+                    "short_name": "Mound Township",
+                    "types": [
+                        "administrative_area_level_3",
+                        "political"
+                    ]
+                },
+                {
+                    "long_name": "Effingham County",
+                    "short_name": "Effingham County",
+                    "types": [
+                        "administrative_area_level_2",
+                        "political"
+                    ]
+                },
+                {
+                    "long_name": "Illinois",
+                    "short_name": "IL",
+                    "types": [
+                        "administrative_area_level_1",
+                        "political"
+                    ]
+                },
+                {
+                    "long_name": "United States",
+                    "short_name": "US",
+                    "types": [
+                        "country",
+                        "political"
+                    ]
+                },
+                {
+                    "long_name": "62411",
+                    "short_name": "62411",
+                    "types": [
+                        "postal_code"
+                    ]
+                },
+                {
+                    "long_name": "2485",
+                    "short_name": "2485",
+                    "types": [
+                        "postal_code_suffix"
+                    ]
+                }
+            ],
+            "formatted_address": "Ballard Nature Center, 5253 US-40, Altamont, IL 62411, USA",
+            "geometry": {
+                "location": {
+                    "lat": 39.0625551,
+                    "lng": -88.7048813
+                },
+                "location_type": "ROOFTOP",
+                "viewport": {
+                    "northeast": {
+                        "lat": 39.0639040802915,
+                        "lng": -88.70353231970849
+                    },
+                    "southwest": {
+                        "lat": 39.0612061197085,
+                        "lng": -88.70623028029151
+                    }
+                }
+            },
+            "partial_match": true,
+            "place_id": "ChIJJUdXuquOc4gRdFL0oXOUJwg",
+            "plus_code": {
+                "compound_code": "377W+22 Altamont, IL",
+                "global_code": "86FH377W+22"
+            },
+            "types": [
+                "establishment",
+                "park",
+                "point_of_interest",
+                "tourist_attraction"
+            ]
+        }
+    ],
+    "status": "OK"
+}
