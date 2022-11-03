@@ -18,7 +18,7 @@ module MappingService
         )
 
         response = save_to_cache(query: query) if response.nil?
-        response
+        response.response
       end
 
       private

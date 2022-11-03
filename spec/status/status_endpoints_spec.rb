@@ -13,6 +13,6 @@ RSpec.describe 'Status Endpoints', type: :endpoint do
     body = JSON.parse(last_response.body)
 
     expect(last_response.status).to eq(200)
-    expect(body['version']).to eq('0.0.1')
+    expect(body['version']).to eq('0.1.1')
   end
 end
