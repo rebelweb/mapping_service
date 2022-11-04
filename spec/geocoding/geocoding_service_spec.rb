@@ -19,7 +19,7 @@ module MappingService
 
       it 'makes the request to get the geocode request' do
         allow_any_instance_of(MappingService::Geocoding::GeocodeRetriever)
-          .to receive(:call).with({ query: query }).and_return(response)
+          .to receive(:call).with({ query: query, provider: 'Here' }).and_return(response)
 
         expect(subject.call(query: query)).to eq(response)
       end
@@ -42,6 +42,23 @@ module MappingService
 
         it 'returns the result from cache' do
           expect(subject.call(query: query)).to eq(cached_response.response)
+        end
+      end
+
+      context 'selecting a provider' do
+        let(:response_data) { File.read('./spec/fixtures/google_geocode_response.json') }
+        let(:response) { JSON.parse(response_data) }
+
+        before do
+          allow_any_instance_of(MappingService::Providers::Google::GeocodeClient)
+            .to receive(:call).and_return(response)
+        end
+
+        it 'uses the selected provider' do
+          expect_any_instance_of(MappingService::Providers::Google::GeocodeClient)
+            .to receive(:call)
+
+          subject.call(query: query, provider: 'Google')
         end
       end
     end

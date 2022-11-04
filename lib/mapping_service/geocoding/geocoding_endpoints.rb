@@ -7,9 +7,12 @@ module MappingService
     class GeocodingEndpoints < Grape::API
       params do
         requires :query, type: String, desc: 'Query for location data'
+        optional :provider, type: String, desc: 'Provider to use to retrieve data'
       end
       get '/' do
-        GeocodingService.new.call(query: params[:query])
+        provider = params.key?(:provider) ? params[:provider] : 'Here'
+
+        GeocodingService.new.call(query: params[:query], provider: provider)
       end
     end
   end

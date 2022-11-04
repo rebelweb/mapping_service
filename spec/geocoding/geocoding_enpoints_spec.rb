@@ -25,6 +25,16 @@ module MappingService
 
         expect(last_response.status).to eq(400)
       end
+
+      it 'uses the prefered provider' do
+        get '/geocoding?query=Ballard%20Nature%20Center%20Altamont%20IL&provider=Google'
+
+        data = JSON.parse(last_response.body)
+
+        expect(last_response.status).to eq(200)
+        expect(data['results'][0]['address_components'][0]['long_name'])
+          .to eq('Ballard Nature Center')
+      end
     end
   end
 end

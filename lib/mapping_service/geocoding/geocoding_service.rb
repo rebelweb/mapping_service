@@ -11,13 +11,13 @@ module MappingService
         self.provider_response_repository = repository
       end
 
-      def call(query:)
+      def call(query:, provider: 'Here')
         response = provider_response_repository.retrieve(
           query: query,
-          provider: 'Here'
+          provider: provider
         )
 
-        response = save_to_cache(query: query) if response.nil?
+        response = save_to_cache(query: query, provider: provider) if response.nil?
         response.response
       end
 
@@ -26,12 +26,12 @@ module MappingService
       attr_accessor :provider_response_repository
       attr_writer :geocode_retriever
 
-      def save_to_cache(query:)
-        response = geocode_retriever.call(query: query)
+      def save_to_cache(query:, provider:)
+        response = geocode_retriever.call(query: query, provider: provider)
 
         provider_response_repository.create(
           query: query,
-          provider: 'Here',
+          provider: provider,
           response: response
         )
       end
