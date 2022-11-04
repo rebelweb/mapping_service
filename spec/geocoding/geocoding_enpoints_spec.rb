@@ -27,7 +27,7 @@ module MappingService
       end
 
       it 'uses the prefered provider' do
-        get "/geocoding?query=Ballard%20Nature%20Center%20Altamont%20IL&provider=Google"
+        get '/geocoding?query=Ballard%20Nature%20Center%20Altamont%20IL&provider=Google'
 
         data = JSON.parse(last_response.body)
 
