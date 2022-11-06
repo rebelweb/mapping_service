@@ -8,6 +8,6 @@ RSpec.describe MappingService do
     version_parts = version.split('.')
 
     expect(version_parts[0]).to eq('0')
-    expect(version_parts[1]).to eq('1')
+    expect(version_parts[1]).to eq('2')
   end
 end
