@@ -51,6 +51,12 @@ module MappingService
           expect(payload[:available_providers]).to include('Google')
         end
       end
+
+      describe 'default provider' do
+        it 'returns the default provider' do
+          expect(subject.call[:default_provider]).to eq('Here')
+        end
+      end
     end
   end
 end

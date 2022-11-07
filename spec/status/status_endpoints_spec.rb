@@ -18,5 +18,6 @@ RSpec.describe 'Status Endpoints', type: :endpoint do
     expect(last_response.status).to eq(200)
     expect(body['version']).to eq('0.2.0')
     expect(body['available_providers']).to eq(['Google'])
+    expect(body['default_provider']).to eq('Here')
   end
 end

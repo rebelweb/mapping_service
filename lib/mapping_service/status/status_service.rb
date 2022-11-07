@@ -12,7 +12,8 @@ module MappingService
       def call
         {
           version: MappingService::VERSION,
-          available_providers: available_providers
+          available_providers: available_providers,
+          default_provider: 'Here'
         }
       end
 
