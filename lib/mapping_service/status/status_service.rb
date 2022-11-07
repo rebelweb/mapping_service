@@ -11,8 +11,20 @@ module MappingService
 
       def call
         {
-          version: MappingService::VERSION
+          version: MappingService::VERSION,
+          available_providers: available_providers
         }
+      end
+
+      private
+
+      def available_providers
+        providers = []
+
+        providers << 'Google' unless ENV.fetch('GOOGLE_API_KEY', nil).empty?
+        providers << 'Here' unless ENV.fetch('HERE_API_KEY', nil).empty?
+
+        providers
       end
     end
   end
