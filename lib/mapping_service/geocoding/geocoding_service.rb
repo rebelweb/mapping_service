@@ -3,28 +3,29 @@
 module MappingService
   module Geocoding
     class GeocodingService
-      attr_reader :geocode_retriever
-
       def initialize(geocode_retriever: GeocodeRetriever.new,
-                     repository: ProviderResponseRepository.new)
+                     repository: ProviderResponseRepository.new,
+                     default_provider_selector: DefaultProviderSelector.new)
         self.geocode_retriever = geocode_retriever
         self.provider_response_repository = repository
+        self.default_provider_selector = default_provider_selector
       end
 
-      def call(query:, provider: 'Here')
+      def call(query:, provider: nil)
+        selected_provider = provider.blank? ? default_provider_selector.call : provider
+
         response = provider_response_repository.retrieve(
           query: query,
-          provider: provider
+          provider: selected_provider
         )
 
-        response = save_to_cache(query: query, provider: provider) if response.nil?
+        response = save_to_cache(query: query, provider: selected_provider) if response.nil?
         response.response
       end
 
       private
 
-      attr_accessor :provider_response_repository
-      attr_writer :geocode_retriever
+      attr_accessor :provider_response_repository, :geocode_retriever, :default_provider_selector
 
       def save_to_cache(query:, provider:)
         response = geocode_retriever.call(query: query, provider: provider)

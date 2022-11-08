@@ -17,6 +17,10 @@ module MappingService
         described_class.new
       end
 
+      before do
+        allow_any_instance_of(MappingService::Geocoding::DefaultProviderSelector).to receive(:call).and_return('Here')
+      end
+
       it 'makes the request to get the geocode request' do
         allow_any_instance_of(MappingService::Geocoding::GeocodeRetriever)
           .to receive(:call).with({ query: query, provider: 'Here' }).and_return(response)
@@ -31,7 +35,7 @@ module MappingService
       end
 
       context 'retriving cached response' do
-        let(:cached_response) do
+        let!(:cached_response) do
           ProviderResponse.create(
             query: query,
             provider: 'Here',
