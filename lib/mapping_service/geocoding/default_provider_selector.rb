@@ -10,8 +10,6 @@ module MappingService
         configured_providers.include?(preferred) ? preferred : configured_providers.first
       end
 
-      private
-
       def configured_providers
         providers = []
 

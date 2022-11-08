@@ -7,6 +7,10 @@ RSpec.describe 'Status Endpoints', type: :endpoint do
     MappingService::Application
   end
 
+  before do
+    allow(ENV).to receive(:fetch).and_return('')
+  end
+
   it 'returns the application info' do
     allow(ENV).to receive(:fetch).with('GOOGLE_API_KEY', nil).and_return('123')
     allow(ENV).to receive(:fetch).with('HERE_API_KEY', nil).and_return('')
@@ -18,6 +22,6 @@ RSpec.describe 'Status Endpoints', type: :endpoint do
     expect(last_response.status).to eq(200)
     expect(body['version']).to eq('0.2.0')
     expect(body['available_providers']).to eq(['Google'])
-    expect(body['default_provider']).to eq('Here')
+    expect(body['default_provider']).to eq('Google')
   end
 end

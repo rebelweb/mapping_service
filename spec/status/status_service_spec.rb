@@ -7,6 +7,10 @@ module MappingService
     RSpec.describe StatusService do
       subject { described_class.new }
 
+      before do
+        allow(ENV).to receive(:fetch).and_return('')
+      end
+
       it 'returns the version' do
         expect(subject.call[:version]).to eq('0.2.0')
       end
@@ -54,6 +58,8 @@ module MappingService
 
       describe 'default provider' do
         it 'returns the default provider' do
+          allow(ENV).to receive(:fetch).with('HERE_API_KEY', nil).and_return('abc123')
+
           expect(subject.call[:default_provider]).to eq('Here')
         end
       end
