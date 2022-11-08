@@ -17,11 +17,8 @@ module MappingService
 
       describe 'available providers' do
         it 'returns Google when the Google Provider is configured' do
-          allow(ENV).to receive(:fetch).with('GOOGLE_API_KEY', nil)
-            .and_return('abc123')
-
-          allow(ENV).to receive(:fetch).with('HERE_API_KEY', nil)
-            .and_return('')
+          allow(ENV).to receive(:fetch).with('GOOGLE_API_KEY', nil).and_return('abc123')
+          allow(ENV).to receive(:fetch).with('HERE_API_KEY', nil).and_return('')
 
           payload = subject.call
 
@@ -30,11 +27,8 @@ module MappingService
         end
 
         it 'returns Here when the Here Provider is configured' do
-          allow(ENV).to receive(:fetch).with('HERE_API_KEY', nil)
-            .and_return('abc123')
-
-          allow(ENV).to receive(:fetch).with('GOOGLE_API_KEY', nil)
-            .and_return('')
+          allow(ENV).to receive(:fetch).with('HERE_API_KEY', nil).and_return('abc123')
+          allow(ENV).to receive(:fetch).with('GOOGLE_API_KEY', nil).and_return('')
 
           payload = subject.call
 
@@ -43,11 +37,8 @@ module MappingService
         end
 
         it 'includes both providers if both are configured' do
-          allow(ENV).to receive(:fetch).with('HERE_API_KEY', nil)
-            .and_return('abc123')
-
-          allow(ENV).to receive(:fetch).with('GOOGLE_API_KEY', nil)
-            .and_return('abc123')
+          allow(ENV).to receive(:fetch).with('HERE_API_KEY', nil).and_return('abc123')
+          allow(ENV).to receive(:fetch).with('GOOGLE_API_KEY', nil).and_return('abc123')
 
           payload = subject.call
 

@@ -3,8 +3,6 @@
 module MappingService
   module Geocoding
     class GeocodingService
-      attr_reader :geocode_retriever
-
       def initialize(geocode_retriever: GeocodeRetriever.new,
                      repository: ProviderResponseRepository.new,
                      default_provider_selector: DefaultProviderSelector.new)
@@ -14,7 +12,7 @@ module MappingService
       end
 
       def call(query:, provider: nil)
-        selected_provider = provider.blank? ? default_provider_selector.call :  provider
+        selected_provider = provider.blank? ? default_provider_selector.call : provider
 
         response = provider_response_repository.retrieve(
           query: query,

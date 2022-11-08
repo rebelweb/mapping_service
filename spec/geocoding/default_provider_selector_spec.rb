@@ -22,7 +22,6 @@ module MappingService
         allow(ENV).to receive(:fetch).with('PREFERRED_PROVIDER', nil).and_return('Google')
         allow(ENV).to receive(:fetch).with('GOOGLE_API_KEY', nil).and_return('')
 
-
         expect(subject.call).to_not eq('Google')
       end
 

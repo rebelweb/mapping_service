@@ -17,7 +17,7 @@ module MappingService
         {
           version: MappingService::VERSION,
           available_providers: default_provider_selector.configured_providers,
-          default_provider:  default_provider_selector.call
+          default_provider: default_provider_selector.call
         }
       end
 
