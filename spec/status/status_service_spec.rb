@@ -12,7 +12,7 @@ module MappingService
       end
 
       it 'returns the version' do
-        expect(subject.call[:version]).to eq('0.2.0')
+        expect(subject.call[:version]).to eq('0.3.0')
       end
 
       describe 'available providers' do
