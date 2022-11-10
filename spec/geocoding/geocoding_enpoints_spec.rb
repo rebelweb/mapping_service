@@ -26,7 +26,7 @@ module MappingService
         expect(last_response.status).to eq(400)
       end
 
-      it 'uses the prefered provider' do
+      it 'uses the preferred provider' do
         get '/geocoding?query=Ballard%20Nature%20Center%20Altamont%20IL&provider=Google'
 
         data = JSON.parse(last_response.body)
@@ -34,6 +34,21 @@ module MappingService
         expect(last_response.status).to eq(200)
         expect(data['results'][0]['address_components'][0]['long_name'])
           .to eq('Ballard Nature Center')
+      end
+
+      it 'returns an error if the provider param is invalid' do
+        get '/geocoding?query=Ballard%20Nature%20Center%20Altamont%20IL&provider=bing'
+
+        expect(last_response.status).to eq(400)
+      end
+
+      it "returns a error if the provider isn't configured" do
+        allow(ENV).to receive(:fetch).and_return('')
+        allow(ENV).to receive(:fetch).with('GOOGLE_API_KEY', nil).and_return('abc123')
+
+        get '/geocoding?query=Ballard%20Nature%20Center%20Altamont%20IL&provider=here'
+
+        expect(last_response.status).to eq(400)
       end
     end
   end
