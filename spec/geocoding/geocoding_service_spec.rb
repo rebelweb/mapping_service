@@ -25,7 +25,7 @@ module MappingService
         allow_any_instance_of(MappingService::Geocoding::GeocodeRetriever)
           .to receive(:call).with({ query: query, provider: 'Here' }).and_return(response)
 
-        expect(subject.call(query: query)).to eq(response)
+        expect(subject.call(query: query)[:provider]).to eq('Here')
       end
 
       it 'saves the response into cache' do
@@ -45,7 +45,9 @@ module MappingService
         end
 
         it 'returns the result from cache' do
-          expect(subject.call(query: query)).to eq(cached_response.response)
+          expect(subject.call(query: query).keys).to include(:provider)
+          expect(subject.call(query: query).keys).to include(:cached_date)
+          expect(subject.call(query: query).keys).to include(:items)
         end
       end
 
