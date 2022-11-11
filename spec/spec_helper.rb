@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'support/simplecov'
+
 ENV['APP_ENV'] ||= 'test'
 
 abort('Misconfigured APP_ENV') if ENV['APP_ENV'] != 'test'
