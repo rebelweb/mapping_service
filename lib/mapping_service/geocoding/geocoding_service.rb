@@ -5,10 +5,12 @@ module MappingService
     class GeocodingService
       def initialize(geocode_retriever: GeocodeRetriever.new,
                      repository: ProviderResponseRepository.new,
-                     default_provider_selector: DefaultProviderSelector.new)
+                     default_provider_selector: DefaultProviderSelector.new,
+                     response_unifier: ProviderResponseUnifier.new)
         self.geocode_retriever = geocode_retriever
         self.provider_response_repository = repository
         self.default_provider_selector = default_provider_selector
+        self.response_unifier = response_unifier
       end
 
       def call(query:, provider: nil)
@@ -20,12 +22,12 @@ module MappingService
         )
 
         response = save_to_cache(query: query, provider: selected_provider) if response.nil?
-        response.response
+        response_unifier.call(response.response, response.provider, response.created_at)
       end
 
       private
 
-      attr_accessor :provider_response_repository, :geocode_retriever, :default_provider_selector
+      attr_accessor :provider_response_repository, :geocode_retriever, :default_provider_selector, :response_unifier
 
       def save_to_cache(query:, provider:)
         response = geocode_retriever.call(query: query, provider: provider)
