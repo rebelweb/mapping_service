@@ -57,15 +57,15 @@ module MappingService
               title: title(result),
               address: address(result),
               city: city(result),
-              state: state(result)[0],
-              state_code: state(result)[1],
-              country: country(result)[0],
-              country_code: country(result)[1],
+              state: state(result),
+              state_code: state_code(result),
+              country: country(result),
+              country_code: country_code(result),
               zip_code: zip_code(result),
               county: county(result),
-              latitude: result['geometry']['location']['lat'],
-              longitude: result['geometry']['location']['lng'],
-              categories: result['types']
+              latitude: latitude(result),
+              longitude: longitude(result),
+              categories: categories(result)
             }
           end
         end
@@ -92,12 +92,22 @@ module MappingService
 
         def state(result)
           component = result['address_components'].find { |comp| comp['types'].include? 'administrative_area_level_1' }
-          [component['long_name'], component['short_name']]
+          component['long_name']
+        end
+
+        def state_code(result)
+          component = result['address_components'].find { |comp| comp['types'].include? 'administrative_area_level_1' }
+          component['short_name']
         end
 
         def country(result)
           component = result['address_components'].find { |comp| comp['types'].include? 'country' }
-          [component['long_name'], component['short_name']]
+          component['long_name']
+        end
+
+        def country_code(result)
+          component = result['address_components'].find { |comp| comp['types'].include? 'country' }
+          component['short_name']
         end
 
         def zip_code(result)
@@ -109,6 +119,18 @@ module MappingService
           component = result['address_components'].find { |comp| comp['types'].include? 'administrative_area_level_2' }
           component['long_name']
         end
+
+        def latitude(result)
+          result['geometry']['location']['lat']
+        end
+
+        def longitude(result)
+          result['geometry']['location']['lng']
+        end
+
+        def categories(result)
+          result['types']
+        end
       end
 
       class HereUnifiedResponse
@@ -119,17 +141,17 @@ module MappingService
         def call
           payload['items'].collect do |item|
             {
-              title: item['title'],
+              title: title(item),
               address: address(item),
-              city: item['address']['city'],
-              state: item['address']['state'],
-              state_code: item['address']['stateCode'],
-              country: item['address']['countryName'],
-              country_code: item['address']['countryCode'],
-              zip_code: item['address']['postalCode'],
-              county: item['address']['county'],
-              latitude: item['position']['lat'],
-              longitude: item['position']['lng'],
+              city: city(item),
+              state: state(item),
+              state_code: state_code(item),
+              country: country(item),
+              country_code: country_code(item),
+              zip_code: zip_code(item),
+              county: county(item),
+              latitude: latitude(item),
+              longitude: longitude(item),
               categories: categories(item)
             }
           end
@@ -139,11 +161,51 @@ module MappingService
 
         attr_accessor :payload
 
+        def title(item)
+          item['title']
+        end
+
         def address(item)
           number = item['address']['houseNumber']
           street = item['address']['street']
 
           "#{number} #{street}"
+        end
+
+        def city(item)
+          item['address']['city']
+        end
+
+        def state(item)
+          item['address']['state']
+        end
+
+        def state_code(item)
+          item['address']['stateCode']
+        end
+
+        def country(item)
+          item['address']['countryName']
+        end
+
+        def country_code(item)
+          item['address']['countryCode']
+        end
+
+        def zip_code(item)
+          item['address']['postalCode']
+        end
+
+        def county(item)
+          item['address']['county']
+        end
+
+        def latitude(item)
+          item['position']['lat']
+        end
+
+        def longitude(item)
+          item['position']['lng']
         end
 
         def categories(item)

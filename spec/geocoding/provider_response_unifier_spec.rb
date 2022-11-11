@@ -5,7 +5,6 @@ require 'spec_helper'
 module MappingService
   module Geocoding
     RSpec.describe ProviderResponseUnifier do
-
       subject { described_class.new }
 
       context 'Google Provider' do
@@ -28,7 +27,8 @@ module MappingService
           expect(unified_response[:items][0][:county]).to eq('Effingham County')
           expect(unified_response[:items][0][:latitude]).to eq(39.0625551)
           expect(unified_response[:items][0][:longitude]).to eq(-88.7048813)
-          expect(unified_response[:items][0][:categories]).to eq(%w[establishment park point_of_interest tourist_attraction])
+          expect(unified_response[:items][0][:categories])
+            .to eq(%w[establishment park point_of_interest tourist_attraction])
         end
       end
 
@@ -52,11 +52,8 @@ module MappingService
           expect(unified_response[:items][0][:county]).to eq('Effingham')
           expect(unified_response[:items][0][:latitude]).to eq(39.06721)
           expect(unified_response[:items][0][:longitude]).to eq(-88.70767)
-          expect(unified_response[:items][0][:categories]).to eq(['Park-Recreation Area',
-            'Landmark-Attraction',
-            'Trailhead',
-            'Organizations and Societies'
-          ])
+          expect(unified_response[:items][0][:categories])
+            .to eq(['Park-Recreation Area', 'Landmark-Attraction', 'Trailhead', 'Organizations and Societies'])
         end
       end
     end
