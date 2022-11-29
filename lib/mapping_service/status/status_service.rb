@@ -24,15 +24,6 @@ module MappingService
       private
 
       attr_accessor :default_provider_selector
-
-      def available_providers
-        providers = []
-
-        providers << 'Google' unless ENV.fetch('GOOGLE_API_KEY', nil).empty?
-        providers << 'Here' unless ENV.fetch('HERE_API_KEY', nil).empty?
-
-        providers
-      end
     end
   end
 end
