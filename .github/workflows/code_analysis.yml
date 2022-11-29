@@ -36,4 +36,5 @@ jobs:
         DATABASE_HOST: mongo:27017
         HERE_API_KEY: ${{ secrets.HERE_API_KEY }}
         GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+        DEFAULT_PROVIDER: 'Here'
       run: bundle exec rspec
