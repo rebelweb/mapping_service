@@ -1,0 +1,11 @@
+name: code-analysis
+run-name: Code Analysis
+on: [push]
+jobs:
+  rubocop:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: ruby/setup-ruby@v1
+      bundle-cache: true
+    - run: bundle exec rubocop
