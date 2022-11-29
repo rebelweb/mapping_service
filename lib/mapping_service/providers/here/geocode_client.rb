@@ -25,14 +25,7 @@ module MappingService
         attr_accessor :api_key
 
         def make_request(query)
-          uri = URI(ENDPOINT)
-          uri.query = URI.encode_www_form(request_params(query))
-
-          client = Net::HTTP.new(uri.host, uri.port)
-          client.use_ssl = true
-
-          request = Net::HTTP::Get.new("#{uri.path}?#{uri.query}")
-          client.request(request)
+          MappingService::RequestBuilder.new(endpoint: ENDPOINT, params: request_params(query)).call
         end
 
         def request_params(query)

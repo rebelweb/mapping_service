@@ -3,8 +3,13 @@
 module MappingService
   module Geocoding
     class ProviderResponseRepository
+      def initialize(model: ProviderResponse, valid_days: ENV.fetch('RESPONSE_VALID_FOR', nil))
+        self.model = model
+        self.valid_days = valid_days
+      end
+
       def retrieve(query:, provider:)
-        responses = ProviderResponse.where(
+        responses = model.where(
           query: query,
           provider: provider
         )
@@ -14,7 +19,7 @@ module MappingService
       end
 
       def create(query:, provider:, response:)
-        ProviderResponse.create(
+        model.create(
           query: query,
           provider: provider,
           response: response,
@@ -24,9 +29,9 @@ module MappingService
 
       private
 
-      def filter_expired_results
-        valid_days = ENV.fetch('RESPONSE_VALID_FOR', nil)
+      attr_accessor :model, :valid_days
 
+      def filter_expired_results
         return if valid_days.nil?
 
         valid_before = Time.zone.now - valid_days.days

@@ -5,3 +5,21 @@ detectors:
 
   NilCheck:
     enabled: false
+
+  TooManyMethods:
+    enabled: false
+
+  ControlParameter:
+    enabled: false
+
+  DataClump:
+    enabled: false
+
+directories:
+  "lib/mapping_service/util":
+    InstanceVariableAssumption:
+      enabled: false
+    MissingSafeMethod:
+      enabled: false
+    UtilityFunction:
+      enabled: false

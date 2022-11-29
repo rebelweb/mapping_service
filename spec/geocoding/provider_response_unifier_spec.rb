@@ -5,17 +5,26 @@ require 'spec_helper'
 module MappingService
   module Geocoding
     RSpec.describe ProviderResponseUnifier do
-      subject { described_class.new }
+      subject { described_class }
 
       context 'Google Provider' do
         let(:response_body) { File.read('./spec/fixtures/google_geocode_response.json') }
         let(:response) { JSON.parse(response_body) }
 
+        let(:cached_response) do
+          ProviderResponse.create(
+            query: 'Ballard Nature Center, Altamont, IL',
+            provider: 'Google',
+            response: response,
+            created_at: Time.zone.now
+          )
+        end
+
         it 'returns the unified response for the Google Provider' do
-          unified_response = subject.call(response, 'Google')
+          unified_response = subject.new(response: cached_response).call
 
           expect(unified_response[:provider]).to eq('Google')
-          expect(unified_response[:cached_date]).to be_nil
+          expect(unified_response[:cached_date]).to_not be_nil
           expect(unified_response[:items][0][:title]).to eq('Ballard Nature Center')
           expect(unified_response[:items][0][:address]).to eq('5253 U.S. 40')
           expect(unified_response[:items][0][:city]).to eq('Altamont')
@@ -36,11 +45,20 @@ module MappingService
         let(:response_body) { File.read('./spec/fixtures/here_geocode_response.json') }
         let(:response) { JSON.parse(response_body) }
 
+        let(:cached_response) do
+          ProviderResponse.create(
+            query: 'Ballard Nature Center, Altamont, IL',
+            provider: 'Here',
+            response: response,
+            created_at: Time.zone.now
+          )
+        end
+
         it 'returns the unified response for the Here Provider' do
-          unified_response = subject.call(response, 'Here')
+          unified_response = subject.new(response: cached_response).call
 
           expect(unified_response[:provider]).to eq('Here')
-          expect(unified_response[:cached_date]).to be_nil
+          expect(unified_response[:cached_date]).to_not be_nil
           expect(unified_response[:items][0][:title]).to eq('Ballard Nature Center')
           expect(unified_response[:items][0][:address]).to eq('5253 E US Highway 40')
           expect(unified_response[:items][0][:city]).to eq('Altamont')

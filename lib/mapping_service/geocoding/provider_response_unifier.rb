@@ -27,188 +27,209 @@
 module MappingService
   module Geocoding
     class ProviderResponseUnifier
-      def call(payload, provider, cached_date = nil)
+      def initialize(response:)
+        self.payload = response.response
+        self.provider = response.provider
+        self.cached_date = response.created_at
+      end
+
+      def call
         {
           provider: provider,
           cached_date: cached_date,
-          items: items(payload, provider)
+          items: items
         }
       end
 
       private
 
-      def items(payload, provider)
-        case provider
-        when 'Google'
-          GoogleUnifiedResponse.new(payload).call
-        when 'Here'
-          HereUnifiedResponse.new(payload).call
+      attr_accessor :payload, :provider, :cached_date
+
+      def items
+        config = case provider
+                 when 'Google'
+                   { klass: GoogleUnifiedResponse, key: 'results' }
+                 when 'Here'
+                   { klass: HereUnifiedResponse, key: 'items' }
+                 end
+
+        payload[config[:key]].collect do |item|
+          config[:klass].new(item).call
         end
       end
 
       class GoogleUnifiedResponse
-        def initialize(payload)
-          self.payload = payload
+        def initialize(result)
+          self.result = result
         end
 
         def call
-          payload['results'].collect do |result|
-            {
-              title: title(result),
-              address: address(result),
-              city: city(result),
-              state: state(result),
-              state_code: state_code(result),
-              country: country(result),
-              country_code: country_code(result),
-              zip_code: zip_code(result),
-              county: county(result),
-              latitude: latitude(result),
-              longitude: longitude(result),
-              categories: categories(result)
-            }
-          end
+          {
+            title: title,
+            address: address,
+            city: city,
+            state: state,
+            state_code: state_code,
+            country: country,
+            country_code: country_code,
+            zip_code: zip_code,
+            county: county,
+            latitude: latitude,
+            longitude: longitude,
+            categories: categories
+          }
         end
 
         private
 
-        attr_accessor :payload
+        attr_accessor :result
 
-        def title(result)
+        def address_components
+          result['address_components']
+        end
+
+        def title
           result['address_components'][0]['long_name']
         end
 
-        def address(result)
-          number = result['address_components'].find { |comp| comp['types'].include? 'street_number' }
-          street = result['address_components'].find { |comp| comp['types'].include? 'route' }
-
+        def address
           "#{number['long_name']} #{street['long_name']}"
         end
 
-        def city(result)
+        def number
+          address_components.find { |comp| comp['types'].include? 'street_number' }
+        end
+
+        def street
+          address_components.find { |comp| comp['types'].include? 'route' }
+        end
+
+        def city
           component = result['address_components'].find { |comp| comp['types'].include? 'locality' }
           component['long_name']
         end
 
-        def state(result)
+        def state
           component = result['address_components'].find { |comp| comp['types'].include? 'administrative_area_level_1' }
           component['long_name']
         end
 
-        def state_code(result)
+        def state_code
           component = result['address_components'].find { |comp| comp['types'].include? 'administrative_area_level_1' }
           component['short_name']
         end
 
-        def country(result)
+        def country
           component = result['address_components'].find { |comp| comp['types'].include? 'country' }
           component['long_name']
         end
 
-        def country_code(result)
+        def country_code
           component = result['address_components'].find { |comp| comp['types'].include? 'country' }
           component['short_name']
         end
 
-        def zip_code(result)
+        def zip_code
           component = result['address_components'].find { |comp| comp['types'].include? 'postal_code' }
           component['long_name']
         end
 
-        def county(result)
+        def county
           component = result['address_components'].find { |comp| comp['types'].include? 'administrative_area_level_2' }
           component['long_name']
         end
 
-        def latitude(result)
+        def latitude
           result['geometry']['location']['lat']
         end
 
-        def longitude(result)
+        def longitude
           result['geometry']['location']['lng']
         end
 
-        def categories(result)
+        def categories
           result['types']
         end
       end
 
       class HereUnifiedResponse
-        def initialize(payload)
-          self.payload = payload
+        def initialize(item)
+          self.item = item
         end
 
         def call
-          payload['items'].collect do |item|
-            {
-              title: title(item),
-              address: address(item),
-              city: city(item),
-              state: state(item),
-              state_code: state_code(item),
-              country: country(item),
-              country_code: country_code(item),
-              zip_code: zip_code(item),
-              county: county(item),
-              latitude: latitude(item),
-              longitude: longitude(item),
-              categories: categories(item)
-            }
-          end
+          {
+            title: title,
+            address: street_address,
+            city: city,
+            state: state,
+            state_code: state_code,
+            country: country,
+            country_code: country_code,
+            zip_code: zip_code,
+            county: county,
+            latitude: latitude,
+            longitude: longitude,
+            categories: categories
+          }
         end
 
         private
 
-        attr_accessor :payload
+        attr_accessor :item
 
-        def title(item)
+        def address
+          item['address']
+        end
+
+        def title
           item['title']
         end
 
-        def address(item)
-          number = item['address']['houseNumber']
-          street = item['address']['street']
+        def street_address
+          number = address['houseNumber']
+          street = address['street']
 
           "#{number} #{street}"
         end
 
-        def city(item)
-          item['address']['city']
+        def city
+          address['city']
         end
 
-        def state(item)
-          item['address']['state']
+        def state
+          address['state']
         end
 
-        def state_code(item)
-          item['address']['stateCode']
+        def state_code
+          address['stateCode']
         end
 
-        def country(item)
-          item['address']['countryName']
+        def country
+          address['countryName']
         end
 
-        def country_code(item)
-          item['address']['countryCode']
+        def country_code
+          address['countryCode']
         end
 
-        def zip_code(item)
-          item['address']['postalCode']
+        def zip_code
+          address['postalCode']
         end
 
-        def county(item)
-          item['address']['county']
+        def county
+          address['county']
         end
 
-        def latitude(item)
+        def latitude
           item['position']['lat']
         end
 
-        def longitude(item)
+        def longitude
           item['position']['lng']
         end
 
-        def categories(item)
+        def categories
           item['categories'].collect { |category| category['name'] }
         end
       end
