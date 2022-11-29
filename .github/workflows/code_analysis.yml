@@ -31,4 +31,7 @@ jobs:
     - uses: actions/checkout@v3
     - run: bundle install
     - name: RSpec
+      env:
+        APP_ENV: test
+        DATABASE_HOST: mongo:27017
       run: bundle exec rspec
