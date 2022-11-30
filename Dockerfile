@@ -4,4 +4,4 @@ COPY . .
 
 RUN bundle install --without development, test
 
-ENTRYPOINT ["bundle", "exec", "rackup"]
+ENTRYPOINT ["bundle", "exec", "puma"]
