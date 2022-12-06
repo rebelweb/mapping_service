@@ -1,8 +1,6 @@
 name: docker-image-build-and-push
 run-name: Docker Image Build & Push
-on:
-  release:
-    types: [published]
+on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
