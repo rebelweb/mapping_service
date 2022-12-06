@@ -5,7 +5,9 @@ source 'https://rubygems.org'
 ruby '3.1.0'
 
 gem 'grape', '~> 1.6', '>= 1.6.2'
+gem 'grape_logging', '~> 1.8', '>= 1.8.4'
 gem 'mongoid', '~> 8.0', '>= 8.0.2'
+gem 'puma', '~> 6.0'
 gem 'rack', '~> 3.0'
 
 group :development, :test do
