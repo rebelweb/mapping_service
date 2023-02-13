@@ -2,7 +2,7 @@
 
 source 'https://rubygems.org'
 
-ruby '3.1.0'
+ruby '3.2.1'
 
 gem 'grape', '~> 1.6', '>= 1.6.2'
 gem 'grape_logging', '~> 1.8', '>= 1.8.4'
