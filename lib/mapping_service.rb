@@ -15,5 +15,7 @@ module MappingService
 
     mount Status::StatusEndpoints => '/status'
     mount Geocoding::GeocodingEndpoints => '/geocoding'
+
+    add_swagger_documentation
   end
 end
