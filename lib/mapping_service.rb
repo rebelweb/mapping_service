@@ -15,5 +15,12 @@ module MappingService
 
     mount Status::StatusEndpoints => '/status'
     mount Geocoding::GeocodingEndpoints => '/geocoding'
+
+    add_swagger_documentation \
+      info: {
+        title: 'Mapping Service',
+        description: 'Easily get geo data from multiple providers',
+        license: 'MIT',
+      }
   end
 end

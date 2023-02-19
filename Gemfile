@@ -6,6 +6,7 @@ ruby '3.2.1'
 
 gem 'grape', '~> 1.6', '>= 1.6.2'
 gem 'grape_logging', '~> 1.8', '>= 1.8.4'
+gem 'grape-swagger', '~> 1.5'
 gem 'mongoid', '~> 8.0', '>= 8.0.2'
 gem 'puma', '~> 6.0'
 gem 'rack', '~> 3.0'
