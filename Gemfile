@@ -4,6 +4,7 @@ source 'https://rubygems.org'
 
 ruby '3.2.1'
 
+gem 'dry-types', '~> 1.7', '>= 1.7.1'
 gem 'grape', '~> 1.6', '>= 1.6.2'
 gem 'grape_logging', '~> 1.8', '>= 1.8.4'
 gem 'grape-swagger', '~> 1.5'
