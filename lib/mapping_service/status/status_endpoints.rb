@@ -3,8 +3,11 @@
 module MappingService
   module Status
     class StatusEndpoints < Grape::API
+      desc 'Gives Application Information' do
+        success StatusResponse
+      end
       get '/' do
-        StatusService.call
+        present StatusService.call, with: StatusResponse
       end
     end
   end
