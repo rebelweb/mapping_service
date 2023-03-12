@@ -13,7 +13,7 @@
 #       state_code: 'IL',
 #       country: 'United States'
 #       country_code: 'US'
-#       zipCode: '62411',
+#       zip_code: '62411',
 #       county: 'Effingham',
 #       latitude: 0.0,
 #       longitude: 0.0,

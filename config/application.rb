@@ -7,6 +7,10 @@ ENV['APP_ENV'] ||= 'development'
 
 Time.zone = 'UTC'
 
+Dir.glob('lib/**/*_response.rb').each do |f|
+  require "./#{f}"
+end
+
 Dir.glob('config/initializers/**/*.rb').each do |f|
   require "./#{f}"
 end
