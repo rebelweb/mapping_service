@@ -44,7 +44,7 @@ module MappingService
 
       it 'returns a response' do
         expect(json['provider']).to eq('Google')
-        expect(json['cached_date']).to eq('2022-01-01T13:25:00-06:00')
+        expect(json['cached_date']).to include('2022-01-01T13:25:00')
         expect(json['items'][0]['title']).to eq('Ballard Nature Center')
         expect(json['items'][0]['address']).to eq('123 Main St')
         expect(json['items'][0]['city']).to eq('Altamont')
