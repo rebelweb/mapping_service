@@ -1,4 +1,4 @@
-# Frozen_string_literal: true
+# frozen_string_literal: true
 
 module MappingService
   module Geocoding
@@ -12,8 +12,8 @@ module MappingService
       expose :country_code, documentation: { type: 'String', desc: '2 character shorthand of the country of location' }
       expose :zip_code, documentation: { type: 'String', desc: 'Postal code of the location' }
       expose :county, documentation: { type: 'String', desc: 'Subsection of state for the location' }
-      expose :latitude, documentation: { type: 'Decimal', desc: 'East/West geocoordinate of the location' }
-      expose :longitude, documentation: { type: 'Decimal', desc: 'North/South geocoordinate of the location' }
+      expose :latitude, documentation: { type: 'Float', desc: 'East/West geocoordinate of the location' }
+      expose :longitude, documentation: { type: 'Float', desc: 'North/South geocoordinate of the location' }
       expose :categories, documentation: { type: 'String', is_array: true, desc: 'Keywords to describe location' }
     end
   end

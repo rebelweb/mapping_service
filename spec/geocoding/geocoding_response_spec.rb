@@ -13,11 +13,11 @@ module MappingService
         {
           provider: 'Google',
           cached_date: Time.new(2022, 1, 1, 13, 25, 0),
-          items: [location_1]
+          items: [location]
         }
       end
 
-      let(:location_1) do
+      let(:location) do
         {
           title: 'Ballard Nature Center',
           address: '123 Main St',
@@ -35,7 +35,7 @@ module MappingService
       end
 
       it 'only exposes provider, items, and cached_date' do
-        expect(json.keys).to eq(['provider', 'items', 'cached_date'])
+        expect(json.keys).to eq(%w[provider items cached_date])
       end
 
       it 'contains one item' do
