@@ -15,10 +15,11 @@ jobs:
           tags: ${{ env.RELEASE_VERSION }} latest
           containerfiles: |
             ./Containerfile
-      - name: Log in to registry
-        # This is where you will update the personal access token to GITHUB_TOKEN
-        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
-      - name: Push image (latest)
-        run: docker push ghcr.io/rebelweb/mapping_service:latest
-      - name: Push image
-        run:  docker psuh ghcr.io/rebelweb/mapping_service:${{ env.RELEASE_VERSION }}
+      - name: Push Containers to GHCR
+        uses: redhat-actions/push-to-registry@v2
+        with:
+          image: ghcr.io/rebelweb/mapping_service
+          tags: ${{ env.RELEASE_VERSION }} latest
+          registry: ghcr.io
+          username: ${{ secrets.GITHUB_USERNAME }}
+          password: ${{ secrets.GITHUB_TOKEN }}
