@@ -11,7 +11,7 @@ jobs:
       - name: Buildah Build
         uses: redhat-actions/buildah-build@v2
         with:
-          image:
+          image: ghcr.io/rebelweb/mapping_service
           tags: ${{ env.RELEASE_VERSION }} latest
           containerfiles: |
             ./Containerfile
