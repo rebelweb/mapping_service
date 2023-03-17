@@ -1,0 +1,28 @@
+name: container-image-build-and-push
+run-name: Container Image Build & Push
+on:
+  push:
+    tags:
+      - '*'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set Tag Name
+        run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+      - name: Buildah Build
+        uses: redhat-actions/buildah-build@v2
+        with:
+          image: ghcr.io/rebelweb/mapping_service
+          tags: ${{ env.RELEASE_VERSION }} latest
+          containerfiles: |
+            ./Containerfile
+      - name: Push Containers to GHCR
+        uses: redhat-actions/push-to-registry@v2
+        with:
+          image: ghcr.io/rebelweb/mapping_service
+          tags: ${{ env.RELEASE_VERSION }} latest
+          registry: ghcr.io
+          username: ${{ secrets.REGISTRY_USERNAME }}
+          password: ${{ secrets.GITHUB_TOKEN }}
