@@ -11,18 +11,17 @@ jobs:
       - uses: actions/checkout@v3
       - name: Set Tag Name
         run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
-      - name: Log In To Docker Hub
-        env:
-          DOCKER_USER: ${{ secrets.DOCKER_HUB_USERNAME }}
-          DOCKER_PASSWORD: ${{ secrets.DOCKER_HUB_KEY }}
-        run: docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
-      - name: Build Docker Image
-        run: docker build  . --tag mapping_service
-      - name: Tag Latest Image
-        run: docker tag mapping_service ${{ secrets.DOCKER_HUB_USERNAME }}/mapping_service:latest
-      - name: Tag Versioned Image
-        run: docker tag mapping_service ${{ secrets.DOCKER_HUB_USERNAME }}/mapping_service:${{ env.RELEASE_VERSION }}
-      - name: Push Latest Image
-        run: docker push ${{ secrets.DOCKER_HUB_USERNAME }}/mapping_service:latest
-      - name: Push Versioned Image
-        run: docker push ${{ secrets.DOCKER_HUB_USERNAME }}/mapping_service:${{ env.RELEASE_VERSION }}
+      - name: Buildah Build
+        uses: redhat-actions/buildah-build@v2
+        with:
+          image:
+          tags: ${{ env.RELEASE_VERSION }} latest
+          containerfiles: |
+            ./Containerfile
+      - name: Log in to registry
+        # This is where you will update the personal access token to GITHUB_TOKEN
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
+      - name: Push image (latest)
+        run: docker push ghcr.io/rebelweb/mapping_service:latest
+      - name: Push image
+        run:  docker psuh ghcr.io/rebelweb/mapping_service:${{ env.RELEASE_VERSION }}
