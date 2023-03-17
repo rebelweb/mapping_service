@@ -1,6 +1,9 @@
-name: docker-image-build-and-push
-run-name: Docker Image Build & Push
-on: [push]
+name: container-image-build-and-push
+run-name: Container Image Build & Push
+on:
+  push:
+    tags:
+      - '*'
 jobs:
   build:
     runs-on: ubuntu-latest
