@@ -12,7 +12,9 @@ gem 'grape-swagger', '~> 1.5'
 gem 'grape-swagger-entity', '~> 0.5.1'
 gem 'mongoid', '~> 8.0', '>= 8.0.2'
 gem 'puma', '~> 6.0'
-gem 'rack', '~> 3.0'
+gem 'rack', '~> 2.2', '>= 2.2.6.4'
+gem 'rack-attack', '~> 6.6', '>= 6.6.1'
+gem 'redis-store', '~> 1.9', '>= 1.9.2'
 
 group :development, :test do
   gem 'database_cleaner-mongoid', '~> 2.0', '>= 2.0.1'
