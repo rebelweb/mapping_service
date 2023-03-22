@@ -1,7 +1,7 @@
 AllCops:
   NewCops: enable
   Exclude:
-    - bin/**/*
+    - 'bin/**/*'
 
 Style/HashSyntax:
   EnforcedShorthandSyntax: never
