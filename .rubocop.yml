@@ -1,5 +1,10 @@
 AllCops:
   NewCops: enable
+  Exclude:
+    - 'vendor/**/*'
+    - 'tmp/**/*'
+    - '.git/**/*'
+    - 'bin/*'
 
 Style/HashSyntax:
   EnforcedShorthandSyntax: never
