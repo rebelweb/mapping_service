@@ -15,6 +15,7 @@ module MappingService
 
     mount Status::StatusEndpoints => '/status'
     mount Geocoding::GeocodingEndpoints => '/geocoding'
+    mount Auth::ApiKeyEndpoints => '/admin/api_keys'
 
     add_swagger_documentation \
       info: {
