@@ -30,4 +30,5 @@ Mongoid.configure do |config|
   }
 
   config.log_level = :warn
+  config.raise_not_found_error = false
 end
