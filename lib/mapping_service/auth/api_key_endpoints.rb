@@ -11,9 +11,15 @@ module MappingService
         present payload, with: ApiKeysSerializer
       end
 
-      private
+      params do
+        requires :key, type: String, desc: 'Api Key to destroy'
+      end
+      delete '/:key' do
+        result = ApiKeyRepository.new.destroy params[:key]
+        status 404 if result.nil?
 
-      attr_accessor :api_keys
+        present result
+      end
     end
   end
 end
