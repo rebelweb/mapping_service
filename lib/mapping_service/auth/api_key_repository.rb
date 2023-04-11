@@ -7,8 +7,8 @@ module MappingService
         ApiKey.all
       end
 
-      def create params
-        ApiKey.create(
+      def create(params)
+        ApiKey.create!(
           key: SecureRandom.hex(32),
           description: params[:description],
           geocoding: params[:geocoding],

@@ -15,8 +15,7 @@ module MappingService
           description: 'Generic key',
           admin: true,
           geocoding: true,
-          expires_at: Time.zone.now,
-          created_at: Time.zone.now
+          expires_at: Time.zone.now
         )
       end
 
@@ -28,6 +27,32 @@ module MappingService
 
           expect(data['keys'].count).to eq(1)
           expect(data['keys'][0]['description']).to eq('Generic key')
+        end
+      end
+
+      describe 'post' do
+        context 'valid' do
+          let(:params) do
+            {
+              description: 'Sample',
+              admin: true,
+              geocoding: true,
+              expires_in: 90
+            }
+          end
+
+          it 'creates the api key' do
+            expect {
+              post '/admin/api_keys', params, headers: { 'CONTENT_TYPE' => 'application/json' }
+            }.to change(ApiKey, :count).by(1)
+          end
+
+          it 'returns a 200 status' do
+            post '/admin/api_keys', params, headers: { 'CONTENT_TYPE' => 'application/json' }
+            expect(last_response.status).to eq(200)
+            json = JSON.parse(last_response.body)
+            expect(json['description']).to eq('Sample')
+          end
         end
       end
 
