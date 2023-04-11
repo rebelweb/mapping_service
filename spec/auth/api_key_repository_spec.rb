@@ -25,6 +25,21 @@ module MappingService
         end
       end
 
+      describe '#create' do
+        let(:params) do
+          {
+            description: 'Sameple',
+            admin: false,
+            geocoding: true,
+            expires_in: 90
+          }
+        end
+
+        it 'creates the ApiKey' do
+          expect { subject.create(params) }.to change(ApiKey, :count).by(1)
+        end
+      end
+
       describe '#destroy' do
         it 'returns nil if a key is not found' do
           expect(subject.destroy('abc123')).to be_nil
