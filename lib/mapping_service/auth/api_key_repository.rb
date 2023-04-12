@@ -7,6 +7,10 @@ module MappingService
         ApiKey.all
       end
 
+      def find_by_key(key)
+        ApiKey.find_by(key: key)
+      end
+
       def create(params)
         ApiKey.create!(
           key: SecureRandom.hex(32),

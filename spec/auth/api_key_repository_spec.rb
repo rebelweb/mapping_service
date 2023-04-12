@@ -25,6 +25,16 @@ module MappingService
         end
       end
 
+      describe '#find_by_key' do
+        it 'finds the key if it exists' do
+          expect(subject.find_by_key(api_key.key)).to eq(api_key)
+        end
+
+        it "returns nil if the key doesn't exist" do
+          expect(subject.find_by_key('abc123')).to be_nil
+        end
+      end
+
       describe '#create' do
         let(:params) do
           {
