@@ -20,6 +20,7 @@ gem 'redis-store', '~> 1.9', '>= 1.9.2'
 group :development, :test do
   gem 'database_cleaner-mongoid', '~> 2.0', '>= 2.0.1'
   gem 'dotenv', '~> 2.8', '>= 2.8.1'
+  gem 'factory_bot', '~> 6.2', '>= 6.2.1'
   gem 'pry', '~> 0.14.1'
   gem 'rack-test', '~> 2.0', '>= 2.0.2'
   gem 'reek', '~> 6.1', '>= 6.1.1'

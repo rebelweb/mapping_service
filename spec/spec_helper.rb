@@ -8,6 +8,7 @@ abort('Misconfigured APP_ENV') if ENV['APP_ENV'] != 'test'
 
 require_relative '../config/application'
 require 'rack/test'
+require 'factory_bot'
 require 'support/database_cleaner'
 require 'support/timecop'
 require 'support/vcr'
@@ -33,8 +34,13 @@ RSpec.configure do |config|
   Kernel.srand config.seed
 
   config.include Rack::Test::Methods, type: :endpoint
+  config.include FactoryBot::Syntax::Methods
 
   config.before do
     DatabaseCleaner.clean
+  end
+
+  config.before(:suite) do
+    FactoryBot.find_definitions
   end
 end

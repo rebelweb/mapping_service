@@ -7,17 +7,7 @@ module MappingService
     RSpec.describe ApiKeyRepository do
       subject { described_class.new }
 
-      let!(:api_key) do
-        ApiKey.create(
-          key: SecureRandom.hex(64),
-          description: 'Sample Key',
-          admin: false,
-          geocoding: true,
-          active: true,
-          expires_at: Time.zone.now + 90.days,
-          created_at: Time.zone.now
-        )
-      end
+      let!(:api_key) { create(:api_key) }
 
       describe '#get_all' do
         it 'returns all api keys in the system' do

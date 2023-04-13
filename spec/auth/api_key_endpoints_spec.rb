@@ -9,15 +9,7 @@ module MappingService
         MappingService::Application
       end
 
-      let!(:api_key) do
-        ApiKey.create(
-          key: 'abc123',
-          description: 'Generic key',
-          admin: true,
-          geocoding: true,
-          expires_at: Time.zone.now
-        )
-      end
+      let!(:api_key) { create(:api_key) }
 
       describe 'get /' do
         it 'renders a list of api keys' do
@@ -26,7 +18,7 @@ module MappingService
           data = JSON.parse(last_response.body)
 
           expect(data['keys'].count).to eq(1)
-          expect(data['keys'][0]['description']).to eq('Generic key')
+          expect(data['keys'][0]['description']).to eq('Sample Key')
         end
       end
 

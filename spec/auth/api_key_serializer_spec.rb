@@ -7,16 +7,7 @@ module MappingService
     RSpec.describe ApiKeySerializer do
       subject { described_class.represent(api_key) }
 
-      let(:api_key) do
-        {
-          key: 'abc123',
-          description: 'Test',
-          admin: false,
-          geocoding: false,
-          expires_at: Time.new(2025,1,2,0,0,0),
-          created_at: Time.zone.now
-        }
-      end
+      let(:api_key) { build(:api_key) }
 
       let(:response) { JSON.parse(subject.to_json) }
 
@@ -25,19 +16,19 @@ module MappingService
       end
 
       it 'returns the description' do
-        expect(response['description']).to eq('Test')
+        expect(response['description']).to eq(api_key.description)
       end
 
       it 'returns the admin field' do
-        expect(response['admin']).to be_falsey
+        expect(response['admin']).to be_truthy
       end
 
       it 'returns the geocoding field' do
-        expect(response['geocoding']).to be_falsey
+        expect(response['geocoding']).to be_truthy
       end
 
       it 'returns the expires_at field' do
-        expect(response['expires_at']).to include('2025-01-02')
+        expect(response['expires_at']).to include(api_key.expires_at.strftime('%Y-%m-%d'))
       end
 
       it 'returns the created_at field' do
