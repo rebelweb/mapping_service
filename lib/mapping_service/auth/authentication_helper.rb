@@ -8,7 +8,7 @@
       end
 
       def current_user
-        api_key = api_key_repository.find_by_key(headers['API-KEY'])
+        api_key = api_key_repository.find_by_key(headers['Api-Key'])
         api_key unless api_key.nil? || api_key.expired?
       end
 
