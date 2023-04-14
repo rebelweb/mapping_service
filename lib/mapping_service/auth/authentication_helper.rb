@@ -1,6 +1,6 @@
- # frozen_string_literal: true
+# frozen_string_literal: true
 
- module MappingService
+module MappingService
   module Auth
     module AuthenticationHelper
       def authorize_admin!

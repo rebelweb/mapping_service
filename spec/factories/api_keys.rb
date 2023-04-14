@@ -3,7 +3,7 @@
 FactoryBot.define do
   factory :api_key, class: MappingService::Auth::ApiKey do
     key { SecureRandom.hex(32) }
-    description { "Sample Key" }
+    description { 'Sample Key' }
     admin { true }
     geocoding { true }
     active { true }

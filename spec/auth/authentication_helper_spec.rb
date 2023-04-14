@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
+# :reek:MissingSafeMethod
 class AuthHelperTest
   include MappingService::Auth::AuthenticationHelper
 
+  # :reek:UnusedParameters
   def error!(msg, code); end
 
   def headers
@@ -43,7 +45,7 @@ RSpec.describe AuthHelperTest do
   end
 
   describe '#authorize_geocoding!' do
-        it 'calls error! if user is missing geocoding permission' do
+    it 'calls error! if user is missing geocoding permission' do
       allow(subject).to receive(:current_user).and_return(api_key)
       allow(api_key).to receive(:geocoding).and_return(false)
 

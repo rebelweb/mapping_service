@@ -9,9 +9,9 @@ module MappingService
 
       let!(:api_key) { create(:api_key) }
 
-      describe '#get_all' do
+      describe '#all' do
         it 'returns all api keys in the system' do
-          expect(subject.get_all).to include(api_key)
+          expect(subject.all).to include(api_key)
         end
       end
 

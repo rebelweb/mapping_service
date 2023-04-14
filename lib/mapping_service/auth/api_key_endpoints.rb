@@ -10,7 +10,7 @@ module MappingService
 
       get '/' do
         authorize_admin!
-        keys = ApiKeyRepository.new.get_all
+        keys = ApiKeyRepository.new.all
         payload = { keys: keys }
         present payload, with: ApiKeysSerializer
       end
