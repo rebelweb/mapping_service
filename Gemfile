@@ -14,11 +14,13 @@ gem 'mongoid', '~> 8.0', '>= 8.0.2'
 gem 'puma', '~> 6.0'
 gem 'rack', '~> 2.2', '>= 2.2.6.4'
 gem 'rack-attack', '~> 6.6', '>= 6.6.1'
+gem 'rake', '~> 13.0', '>= 13.0.6'
 gem 'redis-store', '~> 1.9', '>= 1.9.2'
 
 group :development, :test do
   gem 'database_cleaner-mongoid', '~> 2.0', '>= 2.0.1'
   gem 'dotenv', '~> 2.8', '>= 2.8.1'
+  gem 'factory_bot', '~> 6.2', '>= 6.2.1'
   gem 'pry', '~> 0.14.1'
   gem 'rack-test', '~> 2.0', '>= 2.0.2'
   gem 'reek', '~> 6.1', '>= 6.1.1'

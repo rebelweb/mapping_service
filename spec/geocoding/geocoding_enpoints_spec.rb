@@ -9,7 +9,10 @@ module MappingService
         MappingService::Application
       end
 
+      let(:api_key) { create(:api_key) }
+
       it 'renders the data for the query', vcr: { cassette_name: 'here/geocode/success' } do
+        header 'API-KEY', api_key.key
         get '/geocoding?query=Ballard+Nature+Center+Altamont+IL'
 
         data = JSON.parse(last_response.body)
@@ -27,6 +30,7 @@ module MappingService
       end
 
       it 'uses the preferred provider' do
+        header 'API-KEY', api_key.key
         get '/geocoding?query=Ballard%20Nature%20Center%20Altamont%20IL&provider=Google'
 
         data = JSON.parse(last_response.body)
